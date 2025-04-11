@@ -1,0 +1,144 @@
+<main class="container">
+  <app-navbar></app-navbar>
+  <div class="content">
+    <div class="profile-container show">
+      <div class="action-bar">
+        <div class="left-actions">
+          <h2>Novo Atendimento</h2>
+        </div>
+      </div>
+      
+      <!-- Loader enquanto carrega os dados -->
+      <div class="loader-container" *ngIf="carregando">
+        <div class="loader"></div>
+        <p>Carregando informações do aluno...</p>
+      </div>
+      
+      
+        
+      
+      <form [formGroup]="matchForm" (ngSubmit)="salvarMatch()">
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Aluno</label>
+              <input type="text" class="form-input" [value]="alunoNome" disabled />
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-wrapper">
+          <label class="filter-title">Filtrar por Especialidade</label>
+          <div class="dropdown-container">
+            <div class="dropdown-header" (click)="toggleEspecialidadesDropdown()">
+              <span *ngIf="especialidadesSelecionadas.length === 0">Selecione especialidades</span>
+              <span *ngIf="especialidadesSelecionadas.length > 0">
+                {{ especialidadesSelecionadas.length }} especialidade(s) selecionada(s)
+              </span>
+              <i class="fas fa-chevron-down" [class.rotated]="showEspecialidadesDropdown"></i>
+            </div>
+            
+            <div class="dropdown-menu" *ngIf="showEspecialidadesDropdown">
+              <div class="dropdown-search">
+                <input 
+                  type="text" 
+                  placeholder="Buscar especialidade..." 
+                  [(ngModel)]="especialidadeSearchText" 
+                  [ngModelOptions]="{standalone: true}"
+                  (input)="filtrarEspecialidades()" />
+              </div>
+              
+              <div class="dropdown-options">
+                <div 
+                  *ngFor="let especialidade of especialidadesFiltradas" 
+                  class="dropdown-option">
+                  <label class="checkbox-label">
+                    <input 
+                      type="checkbox" 
+                      [value]="especialidade.nome" 
+                      [checked]="isEspecialidadeSelecionada(especialidade.nome)"
+                      (change)="onEspecialidadeChange(especialidade.nome, $event)" />
+                    {{ especialidade.nome }}
+                  </label>
+                </div>
+              </div>
+              
+              <div class="dropdown-actions" *ngIf="especialidades.length > 0">
+                <button type="button" class="btn-link" (click)="limparEspecialidades()">Limpar</button>
+                <button type="button" class="btn-link" (click)="toggleEspecialidadesDropdown()">Aplicar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Profissional</label>
+          <select class="form-input" formControlName="profissionalId">
+            <option value="" disabled selected>Selecione um profissional</option>
+            <option 
+              *ngFor="let profissional of profissionaisFiltrados" 
+              [value]="profissional.id">
+              {{ profissional.nome }} <span *ngIf="profissional.especialidade">({{ profissional.especialidade }})</span>
+            </option>
+          </select>
+          <div class="validation-message" *ngIf="matchForm.get('profissionalId')?.errors?.['required'] && matchForm.get('profissionalId')?.touched">
+            Selecione um profissional
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Data de Início</label>
+              <input 
+                type="datetime-local" 
+                class="form-input" 
+                formControlName="dataInicio" />
+              <div class="validation-message" *ngIf="matchForm.get('dataInicio')?.errors?.['required'] && matchForm.get('dataInicio')?.touched">
+                Data de início é obrigatória
+              </div>
+            </div>
+          </div>
+
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Data de Fim (Opcional)</label>
+              <input 
+                type="datetime-local" 
+                class="form-input" 
+                formControlName="dataFim" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Descrição do Atendimento</label>
+              <textarea 
+                class="form-input" 
+                rows="5" 
+                formControlName="descricao"
+                placeholder="Descreva os detalhes do atendimento..."></textarea>
+              <div class="validation-message" *ngIf="matchForm.get('descricao')?.errors?.['required'] && matchForm.get('descricao')?.touched">
+                Descrição é obrigatória
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+          <button type="submit" class="btn-editar" [disabled]="matchForm.invalid">
+            <i class="fas fa-save"></i> Salvar Atendimento
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="success-message" [class.show]="showSuccessMessage">
+      <i class="fas fa-check-circle"></i>
+      <span>Atendimento criado com sucesso!</span>
+    </div>
+  </div>
+</main>

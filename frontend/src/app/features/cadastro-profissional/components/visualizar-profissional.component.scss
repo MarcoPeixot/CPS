@@ -1,0 +1,251 @@
+.profile-container {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  
+  .profile-info {
+    h2 {
+      margin: 0;
+      color: var(--text-color);
+    }
+    
+    p {
+      margin: 5px 0 0;
+      color: var(--medium-gray);
+    }
+  }
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  
+  .tab {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    color: var(--text-color);
+    
+    &:hover {
+      color: var(--secondary-color);
+    }
+    
+    &.active {
+      border-bottom-color: var(--secondary-color);
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+  }
+}
+
+.tab-content {
+  padding: 20px 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-col {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .form-hint {
+    font-size: 0.85rem;
+    color: var(--medium-gray);
+    margin-top: -5px;
+    margin-bottom: 10px;
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s;
+  
+  &:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(227, 0, 0, 0.1);
+  }
+}
+
+textarea.form-input {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.especialidades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.especialidade-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: var(--light-gray);
+  transition: all 0.2s;
+  
+  &:hover {
+    filter: brightness(0.97); // Adjust brightness for hover effect
+  }
+  
+  input[type="checkbox"] {
+    margin: 0;
+    accent-color: var(--secondary-color);
+  }
+  
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.loading {
+  text-align: center;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+/* Variáveis e estilos globais consistentes */
+:host {
+  --primary-color: #FFFFFF;
+  --secondary-color: #E30000; /* Vermelho */
+  --accent-color: #FF4081;
+  --text-color: #333333;
+  --light-gray: #F5F5F5;
+  --medium-gray: #CCCCCC;
+  --border-color: #E0E0E0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  
+  &-primary {
+    background-color: var(--secondary-color);
+    color: white;
+    
+    &:hover:not(:disabled) {
+      background-color: darken(#E30000, 10%);
+    }
+    
+    &:disabled {
+      background-color: lighten(#E30000, 30%);
+      cursor: not-allowed;
+    }
+  }
+  
+  &-secondary {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    
+    &:hover:not(:disabled) {
+      background-color: darken(#F5F5F5, 10%);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    
+    .avatar {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    
+    .tab {
+      padding: 10px 15px;
+    }
+  }
+  
+  .especialidades-grid {
+    grid-template-columns: 1fr;
+  }
+}

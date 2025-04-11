@@ -1,0 +1,141 @@
+:host {
+    --primary-color: #FFFFFF;
+    --secondary-color: #B20000;
+    --text-color: #333333;
+    --light-gray: #F5F5F5;
+    --medium-gray: #EEEEEE;
+    --border-color: #E0E0E0;
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 100;
+    border-radius: 0 0 10px 10px;}
+
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nav-menu {
+    font-size: 18px;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--secondary-color);
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: var(--medium-gray);
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    padding: 5px;
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .logout-btn:hover {
+    color: #c00000;
+    transform: scale(1.1);
+  }
+  
+  .logout-btn i {
+    font-size: 20px;
+    transition: transform 0.2s ease;
+  }
+  
+  .logout-btn:hover i {
+    transform: rotate(-15deg);
+  }
+
+  .login-link {
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: 500;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  span {
+    font-size: 18px;
+    color: var(--text-color);
+  }
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+}

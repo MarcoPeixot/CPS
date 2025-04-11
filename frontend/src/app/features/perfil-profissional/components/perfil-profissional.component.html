@@ -1,0 +1,138 @@
+<div class="container">
+  <app-navbar></app-navbar>
+  
+  <div class="profile-container">
+    <div *ngIf="loading" class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Carregando dados...</p>
+    </div>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+    
+    <div *ngIf="!loading && !errorMessage">
+      <div class="profile-header">
+        <div class="avatar">{{ profissional.nome.charAt(0).toUpperCase() }}</div>
+        <div class="profile-info">
+          <h2>{{ profissional.nome }}</h2>
+          <p>{{ profissional.empresa }}</p>
+        </div>
+      </div>
+      
+      <div class="tabs">
+        <div class="tab" [class.active]="activeTab === 'pessoal'" (click)="setActiveTab('pessoal')">Informações Pessoais</div>
+        <div class="tab" [class.active]="activeTab === 'especialidades'" (click)="setActiveTab('especialidades')">Especialidades</div>
+        <div class="tab" [class.active]="activeTab === 'atendimentos'" (click)="setActiveTab('atendimentos')">Atendimentos</div>
+      </div>
+      
+      <div *ngIf="activeTab === 'pessoal'" class="tab-content">
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Nome Completo</label>
+              <input class="form-input" type="text" [(ngModel)]="profissional.nome" readonly>
+            </div>
+          </div>
+        </div>        
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Empresa</label>
+              <input class="form-input" type="text" [(ngModel)]="profissional.empresa" readonly>
+            </div>
+          </div>
+          <div class="form-col">
+          </div>
+        </div>        
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">Observações</label>
+              <input class="form-input" rows="4" [(ngModel)]="profissional.observacoes">
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+          <button class="btn" (click)="salvarAlteracoes()">Salvar Alterações</button>
+        </div>
+      </div>
+  
+      <div *ngIf="activeTab === 'especialidades'" class="tab-content">
+        <div class="especialidades-list">
+          <div *ngFor="let especialidade of especialidades" class="especialidade-item">
+            <div class="especialidade-info">
+              <h4>{{especialidade.nome}}</h4>
+            </div>
+            <div class="especialidade-actions">
+              <button class="btn-delete">
+                <i class="fas fa-trash"></i> Excluir
+              </button>
+            </div>
+          </div>
+          
+          <div *ngIf="especialidades.length === 0" class="no-especialidades">
+            <p>Você ainda não possui especialidades cadastradas.</p>
+          </div>
+        </div>
+        
+        <div class="action-bar">
+          <div class="left-actions">
+            <button class="btn-novo">
+              <i class="fas fa-plus"></i> Nova Especialidade
+            </button>
+          </div>
+          
+          <div class="right-actions">
+            <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+            <button class="btn" (click)="salvarAlteracoes()">Salvar Alterações</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'atendimentos'" class="tab-content">
+        <div class="card-body">
+          <div *ngIf="profissionalAtendimentos && profissionalAtendimentos.length > 0; else semAtendimentos">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo de Deficiência</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let atendimento of profissionalAtendimentos">
+                    <td>{{ atendimento.id }}</td>
+                    <td>{{ atendimento.aluno.nome }}</td>
+                    <td>{{ atendimento.aluno.deficiencia }}</td>
+                    <td>
+                      <span class="status-badge" [ngClass]="{'status-ativo': !atendimento.dataFim, 'status-finalizado': atendimento.dataFim}">
+                        {{ atendimento.dataFim ? 'Finalizado' : 'Ativo' }}
+                      </span>
+                    </td>                      
+                    <td>
+                      <button class="btn-edit btn-detalhe" (click)="visualizarAluno(atendimento.id)">
+                        <i class="fas fa-eye"></i> Detalhes
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <ng-template #semAtendimentos>
+            <div class="mensagem-info">
+              <i class="fas fa-info-circle"></i> Nenhum atendimento registrado para este profissional.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,233 @@
+:host {
+  --primary-color: #FFFFFF;
+  --secondary-color: #B20000;
+  --accent-color: #FF4081;
+  --text-color: #333333;
+  --light-gray: #F5F5F5;
+  --medium-gray: #EEEEEE;
+  --border-color: #E0E0E0;
+  --dark-gray: #535050;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 15px;
+  background-image: url(https://i.postimg.cc/3xFcV1T6/imagem.png);
+  background-size: cover;
+  background-position: center;
+  background-size: 110%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(178, 0, 0, 0.7); /* Using your --secondary-color with transparency */
+  z-index: 1;
+  pointer-events: none; /* Allows clicking through the overlay */
+}
+
+.login-card {
+  display: flex;
+  z-index: 2;
+  flex-direction: column;
+  background-color: var(--primary-color);
+  border-radius: 20px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-height: 700px;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  flex: 1;
+  gap: 40px;
+}
+
+/* Logo CPS */
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 250px;
+  object-fit: contain;
+}
+
+
+/* Botões */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  width: 400px;
+  margin: 40px auto 30px;
+}
+
+.btn {
+  padding: 16px 24px;
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: clamp(20px, 3vw, 18px);
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.4s ease;
+  width: 100%;
+  color: white;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  padding: 16px 24px;
+  background-color: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: clamp(20px, 3vw, 18px);
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.4s ease;
+  width: 100%;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover {
+  background-color: #c00000;
+  box-shadow: 0 6px 15px rgba(192, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:hover {
+  color: #c00000;
+  border-color: rgba(192, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  gap: 15px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.15), transparent);
+}
+
+.divider-text {
+  font-size: 18px;
+  color: #888;
+  padding: 0 5px;
+}
+
+@media (min-width: 1000px) {
+  .login-card {
+    flex-direction: row;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .login-banner {
+    flex: 0 0 800px;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .login-form {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 25px;
+    margin: 30px auto 20px;
+  }
+}
+
+/* Media query específica para resoluções maiores e zoom */
+@media (min-width: 1000px) and (min-resolution: 1.3dppx), 
+       (min-width: 1000px) and (zoom: 1.3) {
+  .login-card {
+    max-height: none;
+    height: auto;
+  }
+  
+  .login-banner {
+    flex: 0 0 700px;
+  }
+  
+  .login-form {
+    flex: 0 0 40%;
+  }
+  
+  .form-input, .btn, .btn-secondary {
+    font-size: 16px;
+  }
+}
+
+/* Media query para telas muito pequenas ou zooms muito altos */
+@media (max-width: 640px), 
+       (min-resolution: 1.5dppx) and (max-width: 1100px), 
+       (zoom: 1.5) and (max-width: 1100px) {
+  .login-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .login-banner {
+    height: 200px; /* Aumentada a altura em telas pequenas também */
+  }
+  
+  .login-form {
+    padding: 15px 10px;
+  }
+  
+  form {
+    padding: 0 10px;
+  }
+  
+  .form-input {
+    padding: 12px 16px;
+  }
+  
+  .btn, .btn-secondary {
+    padding: 14px 20px;
+  }
+}
+

@@ -1,0 +1,71 @@
+<div class="container" role="main" aria-label="Dashboard de Estatísticas">
+  <app-navbar></app-navbar>
+  
+  <div class="banner-container">
+    <img src="https://i.postimg.cc/k5YzJCCp/ej-inteli.jpg" alt="Grupo de estudantes da ETEC" class="banner-image">
+  </div>
+  
+  <div class="filter-search-area">
+    <button class="btn btn-sm btn-secondary" aria-label="Abrir filtro">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+      </svg>
+      Filtro
+    </button>
+    
+    <div class="search-container">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" class="search-input" placeholder="Pesquisar" aria-label="Campo de pesquisa">
+    </div>
+  </div>
+  
+  <div class="dashboard-container">
+    <h2 class="dashboard-title">Estatísticas das Unidades</h2>
+    
+    <div class="card-grid">
+      <!-- Alunos X Profissionais -->
+      <div class="card" role="region" aria-labelledby="alunosProfissionaisTitle">
+        <h3 id="alunosProfissionaisTitle" class="card-title">Alunos X Profissionais</h3>
+        <div class="chart-container">
+          <canvas #alunosProfissionaisChart aria-label="Gráfico comparativo entre alunos e profissionais"></canvas>
+        </div>
+      </div>
+      
+      <!-- Alunos e Alunos Atendidos    -->
+
+      <div class="card" role="region" aria-labelledby="alunosAtendidosTitle">
+        <h3 id="alunosAtendidosTitle" class="card-title">Alunos X Atendidos</h3>
+        <div class="chart-container">
+          <canvas #alunosAtendidosChart aria-label="Gráfico comparativo entre alunos e alunos atendidos"></canvas>
+        </div>
+      </div>
+      
+      <!-- Quantidade de alunos por ano -->
+      <div class="card full-width" role="region" aria-labelledby="alunosPorAnoTitle">
+        <h3 id="alunosPorAnoTitle" class="card-title">Alunos por Ano</h3>
+        <div class="chart-container; justify-content: center;">
+          <canvas #alunosPorAnoChart height="100" aria-label="Gráfico de quantidade de alunos por ano"></canvas>
+        </div>
+      </div>
+      
+      <!-- Quantidade de alunos por deficiência (barras) -->
+      <div class="card" role="region" aria-labelledby="deficienciasBarTitle">
+        <h3 id="deficienciasBarTitle" class="card-title">Deficiências (Barras)</h3>
+        <div class="chart-container">
+          <canvas #deficienciasBarChart aria-label="Gráfico de barras mostrando a quantidade de alunos por tipo de deficiência"></canvas>
+        </div>
+      </div>
+      
+      <!-- Quantidade de alunos por deficiência (donuts) -->
+      <div class="card" role="region" aria-labelledby="deficienciasPieTitle">
+        <h3 id="deficienciasPieTitle" class="card-title">Deficiências (Donut)</h3>
+        <div class="chart-container">
+          <canvas #deficienciasPieChart aria-label="Gráfico de pizza mostrando a proporção de alunos por tipo de deficiência"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

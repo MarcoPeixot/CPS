@@ -1,0 +1,28 @@
+<div class="navbar">
+    <a routerLink="/home" class="brand">
+        <div class="brand-logo">
+            <img src="https://i.postimg.cc/zGCNxTv2/logo.png" alt="Logo">
+        </div>
+        Node
+    </a>
+    <ul class="nav-menu">
+        <li class="nav-item"><a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a></li>
+        <li class="nav-item"><a routerLink="/aluno-list" routerLinkActive="active" class="nav-link">Alunos</a></li>
+        <li class="nav-item"><a routerLink="/profissional-list" routerLinkActive="active"
+                class="nav-link">Profissionais</a></li>
+        <li class="nav-item"><a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a></li>
+    </ul>
+    <div class="user-menu" *ngIf="isAuthenticated">
+        <img *ngIf="userPicture" [src]="userPicture" alt="User photo" class="user-avatar">
+        <div *ngIf="!userPicture" class="user-avatar">{{ userInitial }}</div>
+        <span>{{ userName }}</span>
+        <button class="logout-btn" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Sair
+        </button>
+    </div>
+
+    <div class="user-menu" *ngIf="!isAuthenticated">
+        <a routerLink="/" class="login-link">Entrar</a>
+    </div>
+</div>

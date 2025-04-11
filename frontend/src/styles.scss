@@ -1,0 +1,97 @@
+/* Variáveis globais de cores */
+:root {
+  --primary-color: #FFFFFF;
+  --secondary-color: #B20000;
+  --accent-color: #B20000;
+  --text-color: #333333;
+  --light-gray: #F5F5F5;
+  --medium-gray: #EEEEEE;
+  --border-color: #E0E0E0;
+  --dark-gray: #535050;
+  --success-color: #34A853;
+  --warning-color: #FBBC05;
+  --error-color: #EA4335;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Estilos de botões */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: var(--secondary-color);
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  background-color: var(--light-gray);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover {
+  background-color: #E5E5E5;
+}
+
+/* Estilos para formulários */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+/* Contêineres */
+.container {
+  margin: 0 auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+}

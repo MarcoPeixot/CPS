@@ -1,0 +1,79 @@
+<main class="container">
+  <app-navbar></app-navbar>
+  <div class="filter-search-area">
+    <div class="search-container">
+      <i class="fas fa-search search-icon" [ngClass]="{'focused-icon': isInputFocused}"></i>
+      <input type="text" class="search-input" placeholder="Pesquisar" 
+             [(ngModel)]="termoPesquisa" 
+             (input)="pesquisarProfissionais()"
+             (focus)="isInputFocused = true"
+             (blur)="isInputFocused = false">
+    </div>
+    <button class="btn-cadastro" (click)="cadastrarProfissional()">
+      <i class="fas fa-user-plus"></i>
+      Cadastrar Profissional
+    </button>
+    <button class="btn-cadastro" (click)="abrirModalEspecialidade()">
+      <i class="fas fa-briefcase-medical"></i>
+      Cadastrar Especialidade
+    </button>
+  </div>
+  <div class="profissional-list">
+    <div class="profissional-item" *ngFor="let profissional of profissionaisFiltrados">
+      <div class="profissional-info">
+        <span class="profissional-nome">{{ profissional.nome }}</span>
+        <span class="profissional-empresa">{{ profissional.empresa }}</span>
+      </div>
+      <div class="profissional-detalhes">{{ profissional.informacoes }}</div>
+      <div class="profissional-actions">
+        <button class="btn" (click)="visualizarProfissional(profissional.id)">Visualizar Perfil</button>
+      </div>
+    </div>
+    <div *ngIf="profissionaisFiltrados.length === 0" class="sem-resultados">
+      Nenhum profissional encontrado.
+    </div>
+  </div>
+  
+  <div class="pagination">
+    <button class="pagination-button" (click)="paginaAnterior()" [disabled]="paginaAtual === 1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <div class="page-numbers">
+      {{ paginaAtual }}, {{ paginaAtual + 1 }}... {{ totalPaginas }}
+    </div>
+    <button class="pagination-button" (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</main>
+
+<!-- Modal para cadastro de especialidade -->
+<div class="modal-overlay" *ngIf="mostrarModalEspecialidade">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Cadastrar Nova Especialidade</h3>
+      <button class="btn-fechar" (click)="fecharModalEspecialidade()">
+        <i class="fas fa-times"></i>
+      </button> 
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nome da Especialidade</label>
+        <input class="form-input" type="text" placeholder="Digite o nome da especialidade" 
+               [(ngModel)]="novaEspecialidade">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="fecharModalEspecialidade()" [disabled]="salvando">
+        Cancelar
+      </button>
+      <button class="btn" (click)="salvarEspecialidade()" [disabled]="!novaEspecialidade.trim() || salvando">
+        {{ salvando ? 'Salvando...' : 'Salvar' }}
+      </button>
+    </div>
+  </div>
+</div>

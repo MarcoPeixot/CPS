@@ -1,0 +1,148 @@
+<main class="container">
+  <app-navbar></app-navbar>
+  
+  <!-- Seleção de Instituição -->
+  <div class="institution-selection-area">
+    <h2>Selecione uma Instituição</h2>
+    
+    <!-- Pesquisa de instituições -->
+    <div class="filter-search-area">
+      <div class="search-container">
+        <i class="fas fa-search search-icon" [ngClass]="{'focused-icon': isInstitutionInputFocused}"></i>
+        <input type="text" class="search-input" placeholder="Pesquisar instituição" 
+               [(ngModel)]="termoPesquisaInstituicao" 
+               (input)="pesquisarInstituicoes()"
+               (focus)="isInstitutionInputFocused = true"
+               (blur)="isInstitutionInputFocused = false">
+      </div>
+    </div>
+    
+    <!-- Loading state para instituições -->
+    <div *ngIf="loadingInstitutions" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Carregando instituições...</p>
+    </div>
+    
+    <!-- Error state para instituições -->
+    <div *ngIf="errorInstitutions && !loadingInstitutions" class="error-container">
+      <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <p>Não foi possível carregar a lista de instituições.</p>
+      <button class="btn btn-retry" (click)="carregarInstituicoes()">Tentar novamente</button>
+    </div>
+    
+    <!-- Lista de instituições scrollável -->
+    <div *ngIf="!loadingInstitutions && !errorInstitutions" class="institution-list-container">
+      <div *ngIf="instituicoesFiltradas.length === 0" class="sem-resultados">
+        <p>Nenhuma instituição encontrada.</p>
+      </div>
+      
+      <div class="institution-list-scroll" *ngIf="instituicoesFiltradas.length > 0">
+        <div class="institution-item" *ngFor="let instituicao of instituicoesFiltradas" 
+             [class.selected]="instituicaoSelecionadaId === instituicao.id"
+             (click)="selecionarInstituicao(instituicao.id)">
+          <div class="institution-avatar">
+            {{ instituicao.name.charAt(0) }}
+          </div>
+          <div class="institution-info">
+            <h3>{{ instituicao.name }}</h3>
+            <p *ngIf="instituicao.city">{{ instituicao.city }}, {{ instituicao.state }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área de alunos (mostrada apenas quando uma instituição é selecionada) -->
+  <div *ngIf="instituicaoSelecionadaId" class="student-section">
+    <div class="section-header">
+      <h2>Alunos da {{ getInstituicaoNome() }}</h2>
+      <button class="btn btn-secondary" (click)="voltarParaInstituicoes()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Voltar para Instituições
+      </button>
+    </div>
+    
+    <div class="filter-search-area">
+      <div class="search-container">
+        <i class="fas fa-search search-icon" [ngClass]="{'focused-icon': isInputFocused}"></i>
+        <input type="text" class="search-input" placeholder="Pesquisar por nome ou email" 
+               [(ngModel)]="termoPesquisa" 
+               (input)="pesquisarAlunos()"
+               (focus)="isInputFocused = true"
+               (blur)="isInputFocused = false">
+      </div>
+    </div>
+    
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Carregando alunos...</p>
+    </div>
+    
+    <!-- Error state -->
+    <div *ngIf="error && !loading" class="error-container">
+      <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <p>Não foi possível carregar a lista de alunos.</p>
+      <button class="btn btn-retry" (click)="tentarNovamente()">Tentar novamente</button>
+    </div>
+    
+    <!-- Students list -->
+    <div *ngIf="!loading && !error" class="aluno-list">
+      <div class="aluno-item" *ngFor="let aluno of alunosFiltrados">
+        <div class="aluno-avatar">
+          {{ aluno.nome.charAt(0) }}
+        </div>
+        <div class="aluno-info">
+          <span class="aluno-nome">{{ getNomeCompleto(aluno) }}</span>
+          <span class="aluno-email" *ngIf="aluno.email">{{ aluno.email }}</span>
+          <span class="aluno-telefone" *ngIf="aluno.telefone">{{ aluno.telefone }}</span>
+        </div>
+        <div class="aluno-actions">
+          <button class="btn" (click)="visualizarAluno(aluno.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Visualizar
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="alunosFiltrados.length === 0 && !loading && !error" class="sem-resultados">
+        <p>Nenhum aluno encontrado com os critérios de pesquisa.</p>
+      </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div *ngIf="!loading && !error && alunos.length > 0" class="pagination">
+      <button class="pagination-button" (click)="paginaAnterior()" [disabled]="paginaAtual === 1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="page-numbers">
+        <span>Página {{ paginaAtual }} de {{ totalPaginas }}</span>
+      </div>
+      <button class="pagination-button" (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,104 @@
+<div class="container">
+  <app-navbar></app-navbar>
+  
+  <div class="content">
+    <div class="welcome-section" *ngIf="auth.user$ | async as user">
+      <h1 class="welcome-title">Bem-vindo(a), {{ userName }}</h1>
+      <p class="welcome-subtitle">Gestor Administrativo | Resumo do sistema e atividades recentes</p>
+      <div class="welcome-decoration"></div>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+    
+    <div class="dashboard-grid" *ngIf="(auth.isAuthenticated$ | async) && !isLoading">
+      <div class="card card-alunos">
+        <div class="card-background"></div>
+        <div class="card-info">
+          <h3 class="card-title">
+            <i class="fas fa-user-graduate"></i>
+            Alunos
+          </h3>
+          <div class="card-content">
+            <div class="stat-value">{{ totalAlunos }}</div>
+            <div class="stat-label">Alunos ativos</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a routerLink="/aluno-list" class="btn btn-secondary">
+            Ver todos <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="card card-profissionais">
+        <div class="card-background"></div>
+        <div class="card-info">
+          <h3 class="card-title">
+            <i class="fas fa-user-md"></i>
+            Profissionais
+          </h3>
+          <div class="card-content">
+            <div class="stat-value">{{ totalProfissionais }}</div>
+            <div class="stat-label">Profissionais disponíveis</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a routerLink="/profissional-list" class="btn btn-secondary">
+            Ver todos <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="card card-matches">
+        <div class="card-background"></div>
+        <div class="card-info">
+          <h3 class="card-title">
+            <i class="fas fa-handshake"></i>
+            Matches
+          </h3>
+          <div class="card-content">
+            <div class="stat-value">{{ totalMatches }}</div>
+            <div class="stat-label">Conexões ativas</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a routerLink="/dashboard" class="btn btn-secondary">
+            Ver detalhes <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stats-section">
+      <div class="stats-header">
+        <h2 class="stats-title">Resumo Educacional</h2>
+        <a routerLink="/dashboard" class="btn btn-outlined">
+          Dashboard completo <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+      <div class="stats-content">
+        <div class="chart-container">
+          <canvas #chartAtendidos></canvas>
+        </div>
+        
+        <div class="stats-cards">
+          <div class="stats-card">
+            <div class="stats-card-value">{{ totalEspecialidades || 0 }}</div>
+            <div class="stats-card-label">Especialidades cadastradas</div>
+          </div>                 
+          <div class="stats-card">
+            <div class="stats-card-value">{{ porcentagemAtendidos }}</div>
+            <div class="stats-card-label">Alunos atendidos (%)</div>
+          </div>          
+          <div class="stats-card">
+            <div class="stats-card-value">{{ totalCursos }}</div>
+            <div class="stats-card-label">Cursos cadastrados</div>
+          </div>          
+        </div>
+      </div>
+    </div>
+    

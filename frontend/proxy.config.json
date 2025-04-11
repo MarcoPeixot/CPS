@@ -1,0 +1,7 @@
+{
+    "/users": {
+      "target": "http://10.32.0.15:3001",
+      "secure": false
+    }
+  }
+    
