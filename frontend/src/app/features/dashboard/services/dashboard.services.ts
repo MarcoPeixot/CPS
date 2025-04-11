@@ -17,7 +17,7 @@ export class DashboardService {
   getDashboardStats(): Observable<any> {
     return forkJoin([
       this.schoolApi.getStats(),
-      this.http.get<any>('http://localhost:3000/stats')
+      this.http.get<any>('https://two025-1a-t13-es05-g04.onrender.com/stats')
     ]).pipe(
       map(([apiData, localData]) => {
         console.log('API Data:', apiData);

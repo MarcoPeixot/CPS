@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DeficienciaService {
-  private apiUrl = 'http://localhost:3000/deficiencia';
+  private apiUrl = 'https://two025-1a-t13-es05-g04.onrender.com/deficiencia';
 
   constructor(private http: HttpClient) { }
 

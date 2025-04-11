@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ProfissionalService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://two025-1a-t13-es05-g04.onrender.com';
 
   constructor(private http: HttpClient) { }
 

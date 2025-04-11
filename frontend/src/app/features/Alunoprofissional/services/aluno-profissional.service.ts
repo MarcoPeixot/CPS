@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AlunoProfissionalService {
-  private apiUrl = 'http://localhost:3000'; // URL da sua API
+  private apiUrl = 'https://two025-1a-t13-es05-g04.onrender.com-es05-g04.onrender.com'; // URL da sua API
 
   constructor(private http: HttpClient) {}
 

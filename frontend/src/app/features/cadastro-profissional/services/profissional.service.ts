@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfissionalService {
-  private apiUrl = 'http://localhost:3000/profissionais'; // URL do backend para profissionais
+  private apiUrl = 'https://two025-1a-t13-es05-g04.onrender.com/profissionais'; // URL do backend para profissionais
 
   constructor(private http: HttpClient) { }
 

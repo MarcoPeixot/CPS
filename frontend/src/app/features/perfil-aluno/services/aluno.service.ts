@@ -9,7 +9,7 @@ import { Student } from '../../../models/student.model'; // Supondo que você te
   providedIn: 'root'
 })
 export class AlunoService {
-  private apiUrl = 'http://localhost:3000/alunos';
+  private apiUrl = 'https://two025-1a-t13-es05-g04.onrender.com/alunos';
 
   constructor(private http: HttpClient, private schoolApiService: SchoolApiService) {}
 
