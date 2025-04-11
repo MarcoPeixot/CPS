@@ -13,7 +13,6 @@ import { InstitutionsComponent } from './components/institutions/institutions.co
 import { authGuard } from './core/guard/auth.guard';
 import { CallbackComponent } from './features/callback/callback.component';
 import { PerfilProfissionalComponent } from './features/perfil-profissional/components/perfil-profissional.component';
-import { StatsController } from '../../../backend/src/controllers/StatsController';
 
 export const routes: Routes = [
     // Rotas Públicas
